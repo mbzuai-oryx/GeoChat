@@ -41,7 +41,7 @@ We establish a comprehensive benchmark for RS multitask conversations and compar
 GeoChat can accomplish multiple tasks for remote-sensing (RS) image comprehension in a unified framework. Given suitable task tokens and user queries, the model can generate visually grounded responses (text with corresponding object locations - shown on top), visual question answering on images and regions (top left and bottom right, respectively) as well as scene classification (top right) and normal natural language conversations (bottom). This makes it the first RS VLM with grounding capability. 
 
 <p align="center">
-  <img src="images/overview.png" alt="GeoChat Overview">
+  <img src="images/overview2.png" alt="GeoChat Overview">
 </p>
 
 ---
