@@ -78,7 +78,7 @@ Qualitative results of GeoChat. (<em>left-right</em>) Results are shown on groun
 ## 🤖 Visual Question Answering
 
 <p align="center">
-  <img src="images/qualitative6.png" alt="Visual Question Answering">
+  <img src="images/vqa.jpg" alt="Visual Question Answering">
 </p>
 
 ---
@@ -86,7 +86,7 @@ Qualitative results of GeoChat. (<em>left-right</em>) Results are shown on groun
 ## 🤖 Scene Classification
 
 <p align="center">
-  <img src="images/qualitative2.png" alt="Visual Question Answering">
+  <img src="images/scene.jpg" alt="Visual Question Answering">
 </p>
 
 ---
@@ -94,7 +94,7 @@ Qualitative results of GeoChat. (<em>left-right</em>) Results are shown on groun
 ## 🤖 Grounded Description
 
 <p align="center">
-  <img src="images/qualitative3.png" alt="Grounded Description">
+  <img src="images/grounded.jpg" alt="Grounded Description">
 </p>
 
 ---
@@ -102,10 +102,10 @@ Qualitative results of GeoChat. (<em>left-right</em>) Results are shown on groun
 ## 🤖 Referring Expression
 
 <p align="center">
-  <img src="images/qualitative4.png" alt="Referring Expression">
+  <img src="images/ref1.jpg" alt="Referring Expression">
 </p>
 <p align="center">
-  <img src="images/qualitative5.png" alt="Referring Expression">
+  <img src="images/ref2.jpg" alt="Referring Expression">
 </p>
 
 ---
@@ -113,7 +113,7 @@ Qualitative results of GeoChat. (<em>left-right</em>) Results are shown on groun
 ## 🤖 Region Caption
 
 <p align="center">
-  <img src="images/qualitative7.png" alt="Region Caption">
+  <img src="images/iden.jpg" alt="Region Caption">
 </p>
 
 ---
