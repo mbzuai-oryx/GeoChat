@@ -73,6 +73,48 @@ Qualitative results of GeoChat. (<em>left-right</em>) Results are shown on groun
   <img src="images/examples.png" alt="Results_GCG">
 </p>
 
+---
+
+## 🤖 Visual Question Answering
+
+<p align="center">
+  <img src="images/qualitative6.png" alt="Visual Question Answering">
+</p>
+
+---
+
+## 🤖 Scene Classification
+
+<p align="center">
+  <img src="images/qualitative2.png" alt="Visual Question Answering">
+</p>
+
+---
+
+## 🤖 Grounded Description
+
+<p align="center">
+  <img src="images/qualitative3.png" alt="Grounded Description">
+</p>
+
+---
+
+## 🤖 Referring Expression
+
+<p align="center">
+  <img src="images/qualitative4.png" alt="Referring Expression">
+</p>
+<p align="center">
+  <img src="images/qualitative5.png" alt="Referring Expression">
+</p>
+
+---
+
+## 🤖 Region Caption
+
+<p align="center">
+  <img src="images/qualitative7.png" alt="Region Caption">
+</p>
 
 ---
 
