@@ -13,7 +13,7 @@
 ---
 
 ## 📢 Latest Updates
-- **Nov-07-23**: GeoChat paper is released [arxiv link](https://arxiv.org/abs/2311.15826). 🔥🔥
+- **Nov-28-23**: GeoChat paper is released [arxiv link](https://arxiv.org/abs/2311.15826). 🔥🔥
 - 📦 Code, models, and datasets coming soon! 🚀
 ---
 
