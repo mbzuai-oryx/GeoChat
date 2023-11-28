@@ -125,6 +125,8 @@ Qualitative examples for region-based captioning. Given a bounding box, GeoChat 
       primaryClass={cs.CV}
 }  
 ```
+## 🙏 Acknowledgement
+We are thankful to LLaVA and Vicuna for releasing their models and code as open-source contributions.
 
 ---
 [<img src="images/IVAL_logo.png" width="200" height="100">](https://www.ival-mbzuai.com)
