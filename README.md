@@ -105,7 +105,7 @@ Qualitative results of GeoChat. (<em>left-right</em>) Results are shown on groun
   <img src="images/ref1.jpg" alt="Referring Expression">
 </p>
 <p align="center">
-  <img src="images/ref2.jpg" alt="Referring Expression">
+  <img src="images/ref_2.jpg" alt="Referring Expression">
 </p>
 
 ---
