@@ -72,7 +72,7 @@ Qualitative results of GeoChat. (<em>left-right</em>) Results are shown on groun
 ---
 
 ## 🤖 Visual Question Answering
-
+Qualitative examples for Visual Question Answering tasks. GeoChat is able to hold multi-turn conversations, based on various types of questions, including presence, count, complex comparisons and so on. It is able to detect objects and hold conversations against low resolution images as well.
 <p align="center">
   <img src="images/vqa.jpg" alt="Visual Question Answering">
 </p>
@@ -80,7 +80,7 @@ Qualitative results of GeoChat. (<em>left-right</em>) Results are shown on groun
 ---
 
 ## 🤖 Scene Classification
-
+Qualitative examples for scene classification. We give the model all the classes from the dataset and ask to choose only one.
 <p align="center">
   <img src="images/scene.jpg" alt="Visual Question Answering">
 </p>
@@ -88,7 +88,7 @@ Qualitative results of GeoChat. (<em>left-right</em>) Results are shown on groun
 ---
 
 ## 🤖 Grounded Description
-
+When asked to describe the image with the special token '[grounding]', GeoChat outputs both the description of the image as well as the bounding boxes for all the objects detected.
 <p align="center">
   <img src="images/grounded.jpg" alt="Grounded Description">
 </p>
@@ -96,7 +96,7 @@ Qualitative results of GeoChat. (<em>left-right</em>) Results are shown on groun
 ---
 
 ## 🤖 Referring Expression
-
+When asked about an object as a referred expression, GeoChat is able to locate it and draw rotated bounding boxes around it correspondingly.
 <p align="center">
   <img src="images/ref1.jpg" alt="Referring Expression">
 </p>
@@ -107,7 +107,7 @@ Qualitative results of GeoChat. (<em>left-right</em>) Results are shown on groun
 ---
 
 ## 🤖 Region Caption
-
+Qualitative examples for region-based captioning. Given a bounding box, GeoChat is able to provide brief descriptions about the area or the object covered by the bounding box.
 <p align="center">
   <img src="images/iden.jpg" alt="Region Caption">
 </p>
