@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="GeoChat: Grounded Large Vision-Language Model for Remote Sensing">
+    <meta name="keywords" content="multimodal chatbot">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>GeoChat: Grounded Large Vision-Language Model for Remote Sensing</title>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <link rel="stylesheet" href="./static/css/index.css">
+    <link rel="icon" href="images/geochat_fav.png">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js"></script>
+    <script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/3.27.0/gradio.js"></script>
+</head>
+
+
+<style>
+    .section {
+        margin-bottom: -30px;
+        /* Adjust this value as needed to reduce the space */
+    }
+
+    .expandable-card .card-text-container {
+        max-height: 200px;
+        overflow-y: hidden;
+        position: relative;
+    }
+
+    .expandable-card.expanded .card-text-container {
+        max-height: none;
+    }
+
+    .expand-btn {
+        position: relative;
+        display: none;
+        background-color: rgba(255, 255, 255, 0.8);
+        /* margin-top: -20px; */
+        /* justify-content: center; */
+        color: #510c75;
+        border-color: transparent;
+    }
+
+    .expand-btn:hover {
+        background-color: rgba(200, 200, 200, 0.8);
+        text-decoration: none;
+        border-color: transparent;
+        color: #510c75;
+    }
+
+    .expand-btn:focus {
+        outline: none;
+        text-decoration: none;
+    }
+
+    .expandable-card:not(.expanded) .card-text-container:after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 90px;
+        background: linear-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 1));
+    }
+
+    .expandable-card:not(.expanded) .expand-btn {
+        margin-top: -40px;
+    }
+
+    .card-body {
+        padding-bottom: 5px;
+    }
+
+    .vertical-flex-layout {
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .figure-img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .adjustable-font-size {
+        font-size: calc(0.5rem + 2vw);
+    }
+
+    .chat-history {
+        flex-grow: 1;
+        overflow-y: auto;
+        /* overflow-x: hidden; */
+        padding: 5px;
+        border-bottom: 1px solid #ccc;
+        margin-bottom: 10px;
+    }
+
+    #gradio pre {
+        background-color: transparent;
+    }
+
+    .table-con {
+        overflow-x: auto;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        text-align: center;
+        margin: 0 auto;
+        margin-top: 2rem;
+    }
+
+    table caption {
+        text-align: center;
+    }
+
+    table tr,
+    table td {
+        border: 1px solid;
+    }
+
+    table td {
+        padding: 0.5rem 3.5rem;
+        vertical-align: middle;
+    }
+
+    table tr:first-child {
+        background-color: #f2f2f2;
+    }
+
+    table tr:last-child {
+        background-color: rgb(240, 243, 255);
+    }
+
+    .qual .title {
+        margin-top: 2.5rem;
+    }
+
+    .title img {
+        width: 3.5rem;
+    }
+    .mobile-yt{
+        display: none;
+    }
+    .desktop-yt{
+        display: block;
+    }
+
+    @media only screen and (max-width: 600px) {
+        table td {
+            padding: 0.5rem 0.5rem;
+            /* Adjust padding for smaller screens */
+        }
+
+        img {
+            width: 100%;
+        }
+        .hero img{
+            width: 7rem;
+        }
+        .mobile-yt{
+        display: block;
+        }
+        .desktop-yt{
+            display: none;
+        }
+    }
+</style>
+
+<body>
+    <section class="hero">
+        <div class="hero-body">
+            <div class="container is-max-desktop">
+                <div class="columns is-centered">
+                    <div class="column has-text-centered">
+                        <img src="images/logo_geochat.png" alt="geochat_logo" width="100">
+                        <h1 class="title is-1 publication-title">GeoChat: Grounded Large Vision-Language Model for
+                            Remote Sensing</h1>
+                        <div class="is-size-5 publication-authors">
+                            <!-- First Group of 3 Authors -->
+                            <div class="author-group">
+                                <span class="author-block">
+                                    <a href="https://www.linkedin.com/in/kartik-kuckreja-930531221/"
+                                        style="color:#f68946;font-weight:normal;">Kartik
+                                        Kuckreja<sup>*</sup></a>,
+                                </span>
+                                <span class="author-block">
+                                    <a href="https://www.linkedin.com/in/muhammad-sohail-danish/"
+                                        style="color:#008AD7;font-weight:normal;">Muhammad
+                                        Sohail Danish<sup>*</sup></a>,
+                                </span>
+                            </div>
+
+                            <!-- Second Group of 3 Authors -->
+                            <div class="author-group">
+                                <span class="author-block">
+                                    <a href="https://muzammal-naseer.com/"
+                                        style="color:#F2A900;font-weight:normal;">Muzammal Naseer</a>,
+                                </span>
+                                <span class="author-block">
+                                    <a href="https://sites.google.com/site/dasabhijit2048/home"
+                                        style="color:#F2A900;font-weight:normal;">Abhijit Das</a>,
+                                </span>
+                                <span class="author-block">
+                                    <a href="https://salman-h-khan.github.io"
+                                        style="color:#f68946;font-weight:normal;">Salman Khan</a>,
+                                </span>
+                                <span class="author-block">
+                                    <a href="https://sites.google.com/view/fahadkhans/home"
+                                        style="color:#f68946;font-weight:normal;">Fahad S. Khan</a>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="is-size-5 publication-authors">
+                            Mohamed bin Zayed University of AI, Birla Institute of Technology & Science, Australian National University, Linkoping University<br>
+                        </div>
+                        <div class="is-size-6 publication-authors">
+                            <span class="author-block"><sup>*</sup>Equally contributing first authors</span>
+                        </div>
+                        <div class="column has-text-centered">
+                            <div class="publication-links">
+                                <span class="link-block">
+                                    <a href="https://arxiv.org/abs/2311.03356" target="_blank"
+                                        class="external-link button is-normal is-rounded is-dark">
+                                        <span class="icon">
+                                            <i class="ai ai-arxiv"></i>
+                                        </span>
+                                        <span>arXiv</span>
+                                    </a>
+                                </span>
+                                <span class="link-block">
+                                    <a href="https://github.com/mbzuai-oryx/geochat" target="_blank"
+                                        class="external-link button is-normal is-rounded is-dark">
+                                        <span class="icon">
+                                            <i class="fab fa-github"></i>
+                                        </span>
+                                        <span>Code</span>
+                                    </a>
+                                </span>
+                                <span class="link-block">
+                                    <a href="#grand-dataset" target="_blank"
+                                        class="external-link button is-normal is-rounded is-dark">
+                                        <span class="icon">
+                                            <i class="fas fa-database"></i>
+                                        </span>
+                                        <span>Dataset</span>
+                                    </a>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="hero teaser">
+        <div class="container is-max-desktop">
+            <div class="hero-body">
+                <h4 class="subtitle has-text-justified">
+                    GeoChat is the first grounded Large Vision Language Model, specifically tailored to Remote
+                    Sensing(RS) scenarios. Unlike general-domain models, GeoChat excels in handling high-resolution RS
+                    imagery, employing region-level reasoning for comprehensive scene interpretation. Leveraging a newly
+                    created RS multimodal dataset, GeoChat is fine-tuned using the LLaVA-1.5 architecture. This results
+                    in robust zero-shot performance across various RS tasks, including image and region captioning,
+                    visual question answering, scene classification, visually grounded conversations, and referring
+                    object detection.
+                </h4>
+            </div>
+        </div>
+    </section>
+
+    <div class="desktop-yt" style="text-align:center;">
+        <iframe width="1040" height="720" src="https://www.youtube.com/embed/KOKtkkKpNDk?si=0o0kqEAysSM98OYh"
+            title="YouTube video player" frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen></iframe>
+    </div>
+
+    <div class ="mobile-yt" style="text-align: center; max-width: 100%;">
+        <div style="position: relative; overflow: hidden; padding-bottom: 56.25%;">
+            <!-- 16:9 aspect ratio. You can adjust the padding-bottom percentage accordingly. -->
+            <iframe
+                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
+                src="https://www.youtube.com/embed/KOKtkkKpNDk?si=0o0kqEAysSM98OYh"
+                title="YouTube video player" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen
+            ></iframe>
+        </div>
+    </div>
+    
+
+
+    <section class="section" style="background-color:#efeff081">
+        <div class="container is-max-desktop">
+            <!-- Abstract. -->
+            <div class="columns is-centered has-text-centered">
+                <div class="column is-six-fifths">
+                    <h2 class="title is-3">🏆 Contributions</h2>
+                    <div class="content has-text-justified">
+                        <ol type="1">
+                            <li><b>RS multimodal instruction following dataset</b>. We present a novel data generation
+                                pipeline, to leverage existing object detection dataset to create short descriptions of
+                                the images, followed by using Vicuna-v1.5 to create conversations using the generated
+                                text alone. Further, we add visual question-answering and scene classification abilities
+                                using their corresponding datasets. This results in a total of 318k instruction pairs
+                                for RS domain. </li>
+                            <br>
+                            <li><b>GeoChat</b>. Leveraging our dataset, we finetune LLaVA-1.5 to create the remote
+                                sensing-domain vision-language model - GeoChat. Our LoRA fine-tuning is efficient and
+                                avoids forgetting the necessary context embedded in fully-tuned LLaVA model, whose MLP
+                                projection is trained to align images into the word embedding space of the LLM
+                                (Vicuna-v1.5). This allows GeoChat to retain the conversation and instruction following
+                                abilities of LLaVA and extend its domain-knowledge to remote sensing tasks. </li>
+                            <br>
+                            <li><b>Evaluation Benchmark</b>. We also address the lack of evaluation benchmarks to assess
+                                the capability of existing VLMs on remote-sensing conversations. To this end, we setup
+                                evaluation protocols for conversation grounding in RS, as well as a setup a suite of
+                                tasks to allow comparisons with future efforts in this direction. We show various
+                                supervised as well as zero-shot evaluations for different remote sensing tasks,
+                                including image captioning, visual question answering and scene classification to
+                                demonstrate the generalisability of GeoChat conversational VLM.</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!--Model Arch-->
+    <section class="section">
+        <div class="columns is-centered has-text-centered">
+            <div class="column is-six-fifths">
+                <h2 class="title is-3"><img src="images/logo_geochat.png" alt="geochat" width="60"
+                        style="vertical-align: bottom;"> GeoChat: A unified framework</h2>
+            </div>
+        </div>
+
+        <div class="container is-max-desktop">
+
+            <div class="columns is-centered has-text-centered">
+                <div class="column is-six-fifths"
+                    style="display: flex; align-items: flex-start; justify-content: center;">
+                    <figure style="text-align: center;">
+                        <img id="teaser" width="70%" src="images/teaser.png">
+                        <!-- <figcaption>
+                            GeoChat can accomplish multiple tasks for remote-sensing (RS) image comprehension in a unified framework. Given suitable task tokens and user queries, the model can generate visually grounded responses (text with corresponding object locations - shown on top), visual question answering on images and regions (top left and bottom right, respectively) as well as scene classification (top right) and normal natural language conversations (bottom). This makes it the first RS VLM with grounding capability. 
+                        </figcaption> -->
+                    </figure>
+                </div>
+            </div>
+            <div class="columns is-centered">
+                <div class="column is-full-width">
+                    <div class="content has-text-justified">
+                        <p>
+                            GeoChat can accomplish multiple tasks for remote-sensing (RS) image comprehension in a
+                            unified framework. Given suitable task tokens and user queries, the model can generate
+                            visually grounded responses (text with corresponding object locations - shown on top),
+                            visual question answering on images and regions (top left and bottom right, respectively) as
+                            well as scene classification (top right) and normal natural language conversations (bottom).
+                            This makes it the first RS VLM with grounding capability.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Model Arch -->
+    <section class="section">
+        <div class="columns is-centered has-text-centered">
+            <div class="column is-six-fifths">
+                <h2 class="title is-3"><img src="images/logo_geochat.png" alt="geochat" width="60"
+                        style="vertical-align: bottom;"> GeoChat: Architecture</h2>
+            </div>
+        </div>
+
+        <div class="container is-max-desktop">
+
+            <div class="columns is-centered has-text-centered">
+                <div class="column is-six-fifths"
+                    style="display: flex; align-items: flex-start; justify-content: center;">
+                    <figure style="text-align: center;">
+                        <img id="teaser" width="80%" src="images/architecture.png">
+                    </figure>
+                </div>
+            </div>
+            <div class="columns is-centered">
+                <div class="column is-full-width">
+                    <div class="content has-text-justified">
+                        <p>
+                            An overview of GeoChat - the first grounded large vision-language model for remote sensing.
+                            Given an image input together with a user query, a visual backbone is first used to encode
+                            patch-level tokens at a higher resolution via interpolating positional encodings. A
+                            multi-layer perceptron (MLP) is used to adapt vision-tokens to language space suitable for
+                            input to a Large Language Model (Vicuna 1.5). Besides visual inputs, region locations can
+                            also be input to the model together with task-specific prompts that specify the desired task
+                            required by the user. Given this context, the LLM can generate natural language responses
+                            interleaved with corresponding object locations. GeoChat can perform multiple tasks as shown
+                            on top e.g., scene classification, image/region captioning, VQA and grounded conversations.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Model Arch -->
+    <!--Dataset-->
+    <section id="grand-dataset" class="section">
+        <div class="columns is-centered has-text-centered">
+            <div class="column is-six-fifths">
+                <h2 class="title is-3"><img src="images/logo_geochat.png" alt="geochat_logo" width="70"
+                        style="vertical-align: bottom;"> RS Multimodal Instruction Dataset</h2>
+            </div>
+        </div>
+        <!--Dataset Pipeline-->
+        <div class="container is-max-desktop">
+            <div class="columns is-centered">
+                <div class="column is-full-width">
+                    <div class="content has-text-justified">
+                        <p>
+                            Types of annotations available in the GeoChat instruction-set. For a given RS image, we
+                            obtain object attribute and relationship information, referring expressions and region
+                            captions along with their corresponding region annotations (shown over the image). This
+                            structured information is used to create the rich instruction-set with a total of 318k
+                            image-instruction pairs.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="columns is-centered has-text-centered">
+                <div class="column is-six-fifths"
+                    style="display: flex; align-items: flex-start; justify-content: center;">
+                    <figure style="text-align: center;">
+                        <img id="teaser" width="80%" src="images/dataset.png">
+                    </figure>
+                </div>
+            </div>
+        </div>
+        <br>
+    </section>
+    <!--Dataset-->
+    <!--Results-->
+    <section class="section">
+
+        <!-- qualitative results -->
+        <div class="columns is-centered has-text-centered">
+            <div class="column is-six-fifths">
+                <h2 class="title is-3"><img src="images/logo_geochat.png" alt="geochat_logo" width="70"
+                        style="vertical-align: bottom;"> Qualitative Results</h2>
+            </div>
+        </div>
+
+        <div class="container is-max-desktop">
+            <div class="columns is-centered has-text-centered">
+                <div class="column is-six-fifths"
+                    style="display: flex; align-items: flex-start; justify-content: center;">
+                    <figure style="text-align: center;">
+                        <img id="teaser" width="80%" src="images/examples.png">
+                    </figure>
+                </div>
+            </div>
+
+            <div class="columns is-centered">
+                <div class="column is-full-width">
+                    <div class="content has-text-justified">
+                        <p>
+                            Qualitative results of GeoChat. (left-right) Results are shown on grounding, referring
+                            object detection, and disaster/damage detection. The user can provide task-specific tokens
+                            (e.g., [grounding]) to shape model responses according to the desired behavior. The model
+                            can generate textual responses (right), only visual grounding (center) and both text and
+                            object groundings interleaved together (left). The model can also specify object types,
+                            object counts, object attributes and object relationships.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+
+        <!-- qualitative results -->
+        <div class="qual container">
+
+            <div class="container is-max-desktop">
+                <div class="columns is-centered">
+                    <div class="column is-full-width">
+                        <h2 class="title is-3">Visual Question Answering (VQA)</h2>
+                        <div class="content has-text-justified">
+                            <p>
+                                GeoChat is able to hold multi-turn conversations, based on various types of questions,
+                                including presence, count, complex comparisons and so on. It is able to detect objects
+                                and hold conversations against low resolution images as well.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="columns is-centered has-text-centered">
+                    <div class="column is-six-fifths"
+                        style="display: flex; align-items: flex-start; justify-content: center;">
+                        <figure style="text-align: center;">
+                            <img id="teaser" width="100%" src="images/vqa.jpg">
+                            <figcaption>
+                                Qualitative results of GeoChat's performance in Visual Question Answering.
+                            </figcaption>
+                        </figure>
+                    </div>
+                </div>
+            </div>
+
+            <!--Table - GCG-->
+            <div class="table-con" style="text-align: center;">
+                <table>
+                    <tr>
+                        <td>Method</td>
+                        <td>Presence</td>
+                        <td>Comparison</td>
+                        <td>Rural/Urban</td>
+                        <td>Avg. Accuracy</td>
+                    </tr>
+                    <tr>
+                        <td>LLaVA-1.5</td>
+                        <td>55.46</td>
+                        <td>68.20</td>
+                        <td>59.00</td>
+                        <td>62.77</td>
+                    </tr>
+                    <tr>
+                        <td>Qwen-vl-Chat</td>
+                        <td>38.57</td>
+                        <td>67.59</td>
+                        <td>61.00</td>
+                        <td>55.35</td>
+                    </tr>
+                    <tr>
+                        <td>MiniGPTv2</td>
+                        <td>55.16</td>
+                        <td>55.22</td>
+                        <td>39.00</td>
+                        <td>54.96</td>
+                    </tr>
+                    <tr>
+                        <td>RSVQA</td>
+                        <td>87.47</td>
+                        <td>81.50</td>
+                        <td>90.00</td>
+                        <td>86.32</td>
+                    </tr>
+                    <tr>
+                        <td>EasyToHard</td>
+                        <td>90.66</td>
+                        <td>87.49</td>
+                        <td>91.67</td>
+                        <td>89.94</td>
+                    </tr>
+                    <tr>
+                        <td>Bi-Modal</td>
+                        <td>91.06</td>
+                        <td>91.16</td>
+                        <td>92.66</td>
+                        <td>91.63</td>
+                    </tr>
+                    <tr>
+                        <td>SHRNet</td>
+                        <td>91.03</td>
+                        <td>90.48</td>
+                        <td>94.00</td>
+                        <td>91.84</td>
+                    </tr>
+                    <tr>
+                        <td>RSGPT</td>
+                        <td>91.17</td>
+                        <td>91.70</td>
+                        <td>94.00</td>
+                        <td>92.29</td>
+                    </tr>
+                    <tr>
+                        <td>GeoChat</td>
+                        <td>91.09</td>
+                        <td>90.33</td>
+                        <td>94.00</td>
+                        <td>90.70</td>
+                    </tr>
+                    <caption>Comparisons with general zero-shot (top) and RS-VQA
+                        specialized (middle) models on RSVQA-LRBEN dataset for
+                        VQA task. LLaVA-1.5, Qwen-vl-Chat and MiniGPTv2 are evaluated in zero-shot setting. GeoChat
+                        outperforms other zero-shot models and performs competitively to
+                        SoTA-supervised models like RSGPT which are specifically finetuned on target dataset (while ours
+                        is a generic model not specifically finetuned on target dataset).</caption>
+                </table>
+            </div>
+        </div>
+
+
+        <!-- qualitative results -->
+        <div class="qual container">
+            <div class="container is-max-desktop">
+                <div class="columns is-centered">
+                    <div class="column is-full-width">
+                        <h2 class="title is-3">Scene Classification</h2>
+
+                        <div class="content has-text-justified">
+                            <p>
+                                For scene classification, the model is presented with a list of dataset classes in the
+                                input prompt and tasked with selecting a single class from the provided options.
+
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="columns is-centered has-text-centered">
+                    <div class="column is-six-fifths"
+                        style="display: flex; align-items: flex-start; justify-content: center;">
+                        <figure style="text-align: center;">
+                            <img id="teaser" width="100%" src="images/scene.jpg">
+                            <figcaption>
+                                Qualitative results of GeoChat's performance in scene classification.
+                            </figcaption>
+                        </figure>
+                    </div>
+                </div>
+            </div>
+
+            <!--Table - GCG-->
+            <div class="table-con" style="text-align: center;">
+                <table>
+                    <tr>
+                        <td>Model</td>
+                        <td>UCMerced</td>
+                        <td>AID</td>
+                    </tr>
+                    <tr>
+                        <td>Qwen-VL </td>
+                        <td>62.90</td>
+                        <td>52.60</td>
+                    </tr>
+                    <tr>
+                        <td>MiniGPTv2 </td>
+                        <td>4.76</td>
+                        <td>12.90</td>
+                    </tr>
+                    <tr>
+                        <td>LLaVA-1.5 </td>
+                        <td>68.00</td>
+                        <td>51.00</td>
+                    </tr>
+                    <tr>
+                        <td>GeoChat</td>
+                        <td>84.43</td>
+                        <td>72.03</td>
+                    </tr>
+                    <caption>Zero-shot scene classification accuracy comparison on
+                        AID and UCMerced datasets. In comparison to other
+                        generic VLMs, GeoChat performs favorably well.</caption>
+                </table>
+            </div>
+        </div>
+        <div class="qual container">
+
+            <div class="container is-max-desktop">
+                <div class="columns is-centered">
+                    <div class="column is-full-width">
+                        <h2 class="title is-3">Region-Level Caption</h2>
+                        <div class="content has-text-justified">
+                            <p>
+                                Given a bounding box, GeoChat is able to provide brief descriptions about the area or
+                                the object covered by the bounding box.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="columns is-centered has-text-centered">
+                    <div class="column is-six-fifths"
+                        style="display: flex; align-items: flex-start; justify-content: center;">
+                        <figure style="text-align: center;">
+                            <img id="teaser" width="100%" src="images/iden.jpg">
+                            <figcaption>
+                                Qualitative results of GeoChat's performance in region-level caption.<caption></caption>
+                                .
+                            </figcaption>
+                        </figure>
+                    </div>
+                </div>
+            </div>
+
+            <!--Table - GCG-->
+            <div class="table-con" style="text-align: center;">
+                <table>
+                    <tr>
+                        <td>Model</td>
+                        <td>ROUGE-1</td>
+                        <td>ROUGE-L</td>
+                        <td>METEOR</td>
+                    </tr>
+                    <tr>
+                        <td>MiniGPTv2</td>
+                        <td>32.1</td>
+                        <td>31.2</td>
+                        <td>10.0</td>
+                    </tr>
+                    <tr>
+                        <td>GeoChat</td>
+                        <td>87.3</td>
+                        <td>87.2</td>
+                        <td>83.9</td>
+                    </tr>
+                    <caption>Region level captioning performance.</caption>
+                </table>
+            </div>
+        </div>
+
+        <div class="qual container">
+
+
+            <div class="container is-max-desktop">
+                <div class="columns is-centered">
+                    <div class="column is-full-width">
+                        <h2 class="title is-3">Grounded Description</h2>
+
+                        <div class="content has-text-justified">
+                            <p>
+                                When asked to describe the image with the special token '[grounding]', GeoChat outputs
+                                both the description of the image as well as the bounding boxes for all the objects
+                                detected.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="columns is-centered has-text-centered">
+                    <div class="column is-six-fifths"
+                        style="display: flex; align-items: flex-start; justify-content: center;">
+                        <figure style="text-align: center;">
+                            <img id="teaser" width="100%" src="images/grounded.jpg">
+                            <figcaption>
+                                Qualitative results of GeoChat's performance in grounded description.
+                            </figcaption>
+                        </figure>
+                    </div>
+                </div>
+            </div>
+
+            <!--Table - GCG-->
+            <div class="table-con" style="text-align: center;">
+                <table>
+                    <tr>
+                        <td>Model</td>
+                        <td>acc@0.5</td>
+                        <td>acc@.25</td>
+                        <td>METEOR</td>
+                    </tr>
+                    <tr>
+                        <td>MiniGPTv2</td>
+                        <td>10.8</td>
+                        <td>30.9</td>
+                        <td>16.4</td>
+                    </tr>
+                    <tr>
+                        <td>GeoChat</td>
+                        <td>11.7</td>
+                        <td>33.9</td>
+                        <td>48.9</td>
+                    </tr>
+                    <caption>Results on grounding description task.</caption>
+                </table>
+            </div>
+        </div>
+
+        <div class="qual container">
+            <div class="container is-max-desktop">
+                <div class="columns is-centered">
+                    <div class="column is-full-width">
+                        <h2 class="title is-3">Referring Expression</h2>
+                        <div class="content has-text-justified">
+                            <p>
+                                When asked about an object as a referred expression, GeoChat is able to locate object by
+                                predicting bounding boxes around it correspondingly.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="columns is-centered has-text-centered">
+                    <div class="column is-six-fifths"
+                        style="display: flex; align-items: flex-start; justify-content: center;">
+                        <figure style="text-align: center;">
+                            <img id="teaser" width="100%" src="images/ref1.jpg">
+                            <img id="teaser" width="100%" src="images/ref_2.jpg">
+                            <figcaption>
+                                Qualitative results of GeoChat's performance in referring expression.
+                            </figcaption>
+                        </figure>
+                    </div>
+                </div>
+            </div>
+
+            <!--Table - GCG-->
+            <div class="table-con" style="text-align: center;">
+                <table>
+                    <tr>
+                        <td>Model</td>
+                        <td>Small</td>
+                        <td>Medium</td>
+                        <td>Large</td>
+                        <td>Single-object grounding</td>
+                        <td>Multi-object grounding</td>
+                        <td>[refer]</td>
+                        <td>[grounding]</td>
+                        <td>Overall</td>
+                    </tr>
+                    <tr>
+                        <td>MiniGPTv2</td>
+                        <td>1.7</td>
+                        <td>9.9</td>
+                        <td>21.9</td>
+                        <td>9.1</td>
+                        <td>3.6</td>
+                        <td>8.2</td>
+                        <td>2.6</td>
+                        <td>7.6</td>
+                    </tr>
+                    <tr>
+                        <td>GeoChat</td>
+                        <td>2.9</td>
+                        <td>13.6</td>
+                        <td>21.7</td>
+                        <td>16.0</td>
+                        <td>4.3</td>
+                        <td>10.5</td>
+                        <td>11.8</td>
+                        <td>10.6</td>
+                        <caption>Performance (acc@0.5%) comparison of GeoChat on our benchmark. Small, medium and large
+                            refer to the size of the objects based on the bounding box area. Overall, GeoChat
+                            outperforms the baseline, but there is still significant room for further improvement on
+                            this complex task.</caption>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+    </section>
+    <!--Results -->
+
+    <!--Conv-->
+
+    <!--Conv -->
+    <style>
+        #BibTeX {
+            margin-bottom: -80px;
+            /* Adjust the negative margin as needed */
+        }
+
+        #Acknowledgement {
+            margin-top: -80px;
+            /* Adjust the negative margin as needed */
+        }
+    </style>
+
+    <section class="section" id="BibTeX">
+        <div class="container is-max-desktop content">
+            <h2 class="title">BibTeX</h2>
+            <pre><code>
+    @misc{kuckreja2023geochat,
+        title={GeoChat: Grounded Large Vision-Language Model for Remote Sensing}, 
+        author={Kartik Kuckreja and Muhammad Sohail Danish and Muzammal Naseer and 
+            Abhijit Das and Salman Khan and Fahad Shahbaz Khan},
+        year={2023},
+        eprint={2311.15826},
+        archivePrefix={arXiv},
+        primaryClass={cs.CV}
+    }  
+  </code></pre>
+        </div>
+    </section>
+    <section class="section" id="Acknowledgement">
+        <div class="container is-max-desktop content">
+            <h2 class="title">Acknowledgement</h2>
+            <p>
+                This website is adapted from <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>,
+                licensed under
+                a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+                    Commons Attribution-ShareAlike 4.0 International License</a>. We are thankful to LLaVA and
+                    Vicuna for
+                releasing their models and code as open-source contributions.
+            </p>
+        </div>
+    </section>
+
+</body>
+
+</html>
+
+<div style="text-align: center;">
+    <a href="https://www.ival-mbzuai.com" target="_blank">
+        <img src="images/IVAL_logo.png" width="200" height="100" alt="IVAL Logo">
+    </a>
+    <a href="https://github.com/mbzuai-oryx" target="_blank">
+        <img src="images/Oryx_logo.png" width="100" height="100" alt="Oryx Logo">
+    </a>
+    <a href="https://mbzuai.ac.ae" target="_blank">
+        <img src="images/MBZUAI_logo.png" width="360" height="85" alt="MBZUAI Logo">
+    </a>
+</div>
