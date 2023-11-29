@@ -111,14 +111,19 @@
         background-color: transparent;
     }
 
+    .table-con {
+        overflow-x: auto;
+    }
+
     table {
-        /* width: 100%; */
+        width: 100%;
         border-collapse: collapse;
         text-align: center;
         margin: 0 auto;
         margin-top: 2rem;
     }
-    table caption{
+
+    table caption {
         text-align: center;
     }
 
@@ -143,8 +148,35 @@
     .qual .title {
         margin-top: 2.5rem;
     }
-    .title img{
+
+    .title img {
         width: 3.5rem;
+    }
+    .mobile-yt{
+        display: none;
+    }
+    .desktop-yt{
+        display: block;
+    }
+
+    @media only screen and (max-width: 600px) {
+        table td {
+            padding: 0.5rem 0.5rem;
+            /* Adjust padding for smaller screens */
+        }
+
+        img {
+            width: 100%;
+        }
+        .hero img{
+            width: 7rem;
+        }
+        .mobile-yt{
+        display: block;
+        }
+        .desktop-yt{
+            display: none;
+        }
     }
 </style>
 
@@ -235,7 +267,7 @@
         <div class="container is-max-desktop">
             <div class="hero-body">
                 <h4 class="subtitle has-text-justified">
-                    RGeoChat is the first grounded Large Vision Language Model, specifically tailored to Remote
+                    GeoChat is the first grounded Large Vision Language Model, specifically tailored to Remote
                     Sensing(RS) scenarios. Unlike general-domain models, GeoChat excels in handling high-resolution RS
                     imagery, employing region-level reasoning for comprehensive scene interpretation. Leveraging a newly
                     created RS multimodal dataset, GeoChat is fine-tuned using the LLaVA-1.5 architecture. This results
@@ -247,13 +279,26 @@
         </div>
     </section>
 
-
-    <div style="text-align:center;">
+    <div class="desktop-yt" style="text-align:center;">
         <iframe width="1040" height="720" src="https://www.youtube.com/embed/KOKtkkKpNDk?si=0o0kqEAysSM98OYh"
             title="YouTube video player" frameborder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             allowfullscreen></iframe>
     </div>
+
+    <div class ="mobile-yt" style="text-align: center; max-width: 100%;">
+        <div style="position: relative; overflow: hidden; padding-bottom: 56.25%;">
+            <!-- 16:9 aspect ratio. You can adjust the padding-bottom percentage accordingly. -->
+            <iframe
+                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
+                src="https://www.youtube.com/embed/KOKtkkKpNDk?si=0o0kqEAysSM98OYh"
+                title="YouTube video player" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen
+            ></iframe>
+        </div>
+    </div>
+    
 
 
     <section class="section" style="background-color:#efeff081">
@@ -646,7 +691,8 @@
                         <figure style="text-align: center;">
                             <img id="teaser" width="100%" src="images/iden.jpg">
                             <figcaption>
-                                Qualitative results of GeoChat's performance in region-level caption.<caption></caption>.
+                                Qualitative results of GeoChat's performance in region-level caption.<caption></caption>
+                                .
                             </figcaption>
                         </figure>
                     </div>
@@ -743,7 +789,7 @@
                         <h2 class="title is-3">Referring Expression</h2>
                         <div class="content has-text-justified">
                             <p>
-                                When asked about an object as a referred expression, GeoChat is able to locate by
+                                When asked about an object as a referred expression, GeoChat is able to locate object by
                                 predicting bounding boxes around it correspondingly.
                             </p>
                         </div>
@@ -849,8 +895,8 @@
                 This website is adapted from <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>,
                 licensed under
                 a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
-                    Commons Attribution-ShareAlike 4.0 International License</a>. We are thankful to LLaVA, GPT4ROI, and
-                LISA for
+                    Commons Attribution-ShareAlike 4.0 International License</a>. We are thankful to LLaVA and
+                    Vicuna for
                 releasing their models and code as open-source contributions.
             </p>
         </div>
