@@ -3,7 +3,7 @@
     <img src="https://i.imgur.com/waxVImv.png" alt="Oryx Video-ChatGPT">
 </p>
 
-#### [Kartik Kuckreja]()\*, [Muhammad Sohail Danish]()\*, [Muzammal Naseer](), [Abhijit Das](), [Salman Khan](https://salman-h-khan.github.io/) and [Fahad Khan](https://sites.google.com/view/fahadkhans/home)
+#### [Kartik Kuckreja](https://www.linkedin.com/in/kartik-kuckreja-930531221/)\*, [Muhammad Sohail Danish](https://www.linkedin.com/in/muhammad-sohail-danish/))\*, [Muzammal Naseer](https://muzammal-naseer.com/), [Abhijit Das](https://sites.google.com/site/dasabhijit2048/home), [Salman Khan](https://salman-h-khan.github.io/) and [Fahad Khan](https://sites.google.com/view/fahadkhans/home)
 \* Equally contributing first authors
 
 #### **Mohamed bin Zayed University of AI, Birla Institute of Technology & Science, Australian National University, Linkoping University**
@@ -11,9 +11,12 @@
 [![Website](https://img.shields.io/badge/Project-Website-87CEEB)](https://mbzuai-oryx.github.io/GeoChat)
 [![paper](https://img.shields.io/badge/arXiv-Paper-<COLOR>.svg)](https://arxiv.org/abs/2311.15826)
 [![video](https://img.shields.io/badge/Video-Presentation-F9D371)](https://youtu.be/KOKtkkKpNDk)
+[![video](https://img.shields.io/badge/-Demo-red)](https://be923c5b3785df5548.gradio.live/)
+
 ---
 
 ## 📢 Latest Updates
+- **Dec-01-23**: [Demo](https://be923c5b3785df5548.gradio.live/) is live on gradio for visual question answering and region captioning.
 - **Nov-28-23**: GeoChat paper is released [arxiv link](https://arxiv.org/abs/2311.15826). 🔥🔥
 - 📦 Code, models, and datasets coming soon! 🚀
 ---
