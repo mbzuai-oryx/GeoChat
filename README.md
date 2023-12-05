@@ -11,7 +11,7 @@
 [![Website](https://img.shields.io/badge/Project-Website-87CEEB)](https://mbzuai-oryx.github.io/GeoChat)
 [![paper](https://img.shields.io/badge/arXiv-Paper-<COLOR>.svg)](https://arxiv.org/abs/2311.15826)
 [![video](https://img.shields.io/badge/Video-Presentation-F9D371)](https://youtu.be/KOKtkkKpNDk)
-[![video](https://img.shields.io/badge/-Demo-red)](https://1556a5537a094e4114.gradio.live)
+[![demo](https://img.shields.io/badge/-Demo-red)](https://0e5006091a415ce89d.gradio.live/)
 
 ---
 
