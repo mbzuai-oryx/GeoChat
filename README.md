@@ -96,7 +96,7 @@ Please download the annotation of the final mixture of our instruction tuning da
 
 2. Start training!
 
-Visual instruction tuning takes around due to the increased resolution to 504X504. It takes around 9-10 hours for GeoChat-7B on 3x A100 (40G).
+Visual instruction tuning takes more time due to the increased resolution of CLIP to 504X504. It takes around 9-10 hours to finetune GeoChat-7B on 3x A100 (40G).
 
 Training script with DeepSpeed ZeRO-3: [`finetune.sh`](https://github.com/mbzuai-oryx/GeoChat/blob/main/scripts/finetune_lora.sh).
 
@@ -109,8 +109,7 @@ Options to note:
 
 ## Evaluation
 
-In GeoChat, we evaluate models on a diverse set of 7 benchmarks. To ensure the reproducibility, we evaluate the models with greedy decoding. We do not evaluate using beam search to make the inference process consistent with the chat demo of real-time outputs.
-
+We evaluate GeoChat on a diverse set of 7 benchmarks. To ensure the reproducibility, we evaluate the models with greedy decoding. We do not evaluate using beam search to make the inference process consistent with the chat demo of real-time outputs.
 See [Evaluation.md](https://github.com/mbzuai-oryx/GeoChat/blob/main/docs/Evaluation.md).
 
 ## 🏆 Contributions
