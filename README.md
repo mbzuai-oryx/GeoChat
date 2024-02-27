@@ -30,9 +30,8 @@ GeoChat is the first grounded Large Vision Language Model, specifically tailored
 ---
 ## Contents
 - [Install](#install)
-- [GeoChat Weights](#llava-weights)
-- [Model Zoo](https://github.com/haotian-liu/LLaVA/blob/main/docs/MODEL_ZOO.md)
-- [Dataset](https://github.com/haotian-liu/LLaVA/blob/main/docs/Data.md)
+- [Model Zoo](https://github.com/mbzuai-oryx/GeoChat/blob/main/docs/MODEL_ZOO.md)
+- [Dataset](https://huggingface.co/datasets/MBZUAI/GeoChat_Instruct/blob/main/GeoChat_Instruct.json)
 - [Train](#train)
 - [Evaluation](#evaluation)
 
