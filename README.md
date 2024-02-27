@@ -40,8 +40,8 @@ GeoChat is the first grounded Large Vision Language Model, specifically tailored
 
 1. Clone this repository and navigate to LLaVA folder
 ```bash
-git clone https://github.com/haotian-liu/LLaVA.git
-cd LLaVA
+git clone https://github.com/mbzuai-oryx/GeoChat.git
+cd GeoChat
 ```
 
 2. Install Package
@@ -67,7 +67,7 @@ pip install -e .
 ```
 
 ## GeoChat Weights and Demo
-Please check out our [Model Zoo](https://github.com/haotian-liu/LLaVA/blob/main/docs/MODEL_ZOO.md) for all public GeoChat checkpoints, and the instructions of how to run the demo.
+Please check out our [Model Zoo](https://github.com/mbzuai-oryx/GeoChat/blob/main/docs/MODEL_ZOO.md) for all public GeoChat checkpoints, and the instructions of how to run the demo.
 
 ## Train
 
@@ -93,7 +93,7 @@ We use the pretrained projector from LLaVAv1.5, which is trained on 558K subset 
 
 1. Prepare data
 
-Please download the annotation of the final mixture our instruction tuning data [GeoChat_Instruct.json](https://huggingface.co/datasets/MBZUAI/GeoChat_Instruct/blob/main/GeoChat_Instruct.json), and download the images from the images.zip file.
+Please download the annotation of the final mixture of our instruction tuning data [GeoChat_Instruct.json](https://huggingface.co/datasets/MBZUAI/GeoChat_Instruct/blob/main/GeoChat_Instruct.json), and download the images from the images.zip file.
 
 2. Start training!
 
