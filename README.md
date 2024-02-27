@@ -98,15 +98,15 @@ Please download the annotation of the final mixture of our instruction tuning da
 
 Visual instruction tuning takes more time due to the increased resolution of CLIP to 504X504. It takes around 9-10 hours to finetune GeoChat-7B on 3x A100 (40G).
 
-Training script with DeepSpeed ZeRO-3: [`finetune.sh`](https://github.com/mbzuai-oryx/GeoChat/blob/main/scripts/finetune_lora.sh).
+Training script with DeepSpeed ZeRO-3: [`finetune_lora.sh`](https://github.com/mbzuai-oryx/GeoChat/blob/main/scripts/finetune_lora.sh).
 
 Options to note:
 
 - `--mm_projector_type mlp2x_gelu`: the two-layer MLP vision-language connector.
 - `--vision_tower openai/clip-vit-large-patch14-336`: CLIP ViT-L/14 336px.
 - `--image_aspect_ratio pad`: this pads the non-square images to square, instead of cropping them; it slightly reduces hallucination.
-- `--group_by_modality_length True`: this should only be used when your instruction tuning dataset contains both language (e.g. ShareGPT) and multimodal (e.g. LLaVA-Instruct). It makes the training sampler only sample a single modality (either image or language) during training, which we observe to speed up training by ~25%, and does not affect the final outcome.
-
+- `--group_by_modality_length True`: this should only be used when your instruction tuning dataset contains both language (e.g. ShareGPT) and multimodal (e.g. LLaVA-Instruct).
+- 
 ## Evaluation
 
 We evaluate GeoChat on a diverse set of 7 benchmarks. To ensure the reproducibility, we evaluate the models with greedy decoding. We do not evaluate using beam search to make the inference process consistent with the chat demo of real-time outputs.
