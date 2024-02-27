@@ -11,12 +11,12 @@
 [![Website](https://img.shields.io/badge/Project-Website-87CEEB)](https://mbzuai-oryx.github.io/GeoChat)
 [![paper](https://img.shields.io/badge/arXiv-Paper-<COLOR>.svg)](https://arxiv.org/abs/2311.15826)
 [![video](https://img.shields.io/badge/Video-Presentation-F9D371)](https://youtu.be/KOKtkkKpNDk)
-[![demo](https://img.shields.io/badge/-Demo-red)](https://3fa767b988e4136cd8.gradio.live/)
 
 ---
 
 ## 📢 Latest Updates
-- **Dec-01-23**: [Demo](https://3fa767b988e4136cd8.gradio.live/) is live on gradio for visual question answering and region captioning.
+
+- **Feb-27-24**: GeoChat has been accepted to **CVPR-24** 🎉. We open source the code, model, dataset and evaluation scripts.
 - **Nov-28-23**: GeoChat paper is released [arxiv link](https://arxiv.org/abs/2311.15826). 🔥🔥
 - 📦 Code, models, and datasets coming soon! 🚀
 ---
