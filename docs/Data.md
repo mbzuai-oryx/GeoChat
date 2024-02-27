@@ -1,10 +1,10 @@
-## Data
-
+##  Finetuning Data
+We use GeoChat-Instruct to finetune our model. The instruction following dataset is present in GeoChat_Instruct.json, while the images are present in images.zip file in the [huggingface repo](https://huggingface.co/datasets/MBZUAI/GeoChat_Instruct). Unzip the images in a folder and provide the folder path in training and evaluation scripts.
 | Data file name | Size |
 | --- | ---: |
 | [GeoChat_Instruct](https://huggingface.co/datasets/MBZUAI/GeoChat_Instruct/blob/main/GeoChat_Instruct.json) | 263 MB |
 
-### Pretraining Dataset
+## Pretraining Dataset
 We use the same pretraining dataset as of LlaVA-v1.5.
 The pretraining dataset used in this release is a subset of CC-3M dataset, filtered with a more balanced concept coverage distribution.  Please see [here](https://huggingface.co/datasets/liuhaotian/LLaVA-CC3M-Pretrain-595K) for a detailed description of the dataset structure and how to download the images.
 
