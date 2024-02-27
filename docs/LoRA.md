@@ -1,6 +1,6 @@
 
 ## Demo (Web UI)
-Run this command to run the gradio demo.
+You need GeoChat-7B to run the demo locally. Download the model from [GeoChat-7B](https://huggingface.co/MBZUAI/geochat-7B). After loading the model, run this command by giving the model path to launch the gradio demo.
 #### Launch the demo
 ```Shell
 python geochat_demo.py --model-path /path/to/model 
