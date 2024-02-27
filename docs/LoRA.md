@@ -1,7 +1,7 @@
 
 ## Demo (Web UI)
 Run this command to run the gradio demo.
-#### Launch a controller
+#### Launch the demo
 ```Shell
 python geochat_demo.py --model-path /path/to/model 
 ```
