@@ -16,9 +16,9 @@
 
 ## 📢 Latest Updates
 
-- **Feb-27-24**: GeoChat has been accepted to **CVPR-24** 🎉. We open source the code, model, dataset and evaluation scripts.
+- **Feb-28-24**: We open source the code, model, dataset and evaluation scripts.
+- **Feb-27-24**: GeoChat has been accepted to **CVPR-24** 🎉. 
 - **Nov-28-23**: GeoChat paper is released [arxiv link](https://arxiv.org/abs/2311.15826). 🔥🔥
-- 📦 Code, models, and datasets coming soon! 🚀
 ---
 
 
@@ -79,7 +79,7 @@ We use a similar set of hyperparameters as Vicuna in finetuning.  Both hyperpara
 
 | Hyperparameter | Global Batch Size | Learning rate | Epochs | Max length | Weight decay |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| GeoChat-7B | 128 | 2e-5 | 1 | 2048 | 0 |
+| GeoChat-7B | 144 | 2e-5 | 1 | 2048 | 0 |
 
 ### Pretrain (feature alignment)
 
@@ -96,7 +96,7 @@ Please download the annotation of the final mixture of our instruction tuning da
 
 2. Start training!
 
-Visual instruction tuning takes more time due to the increased resolution of CLIP to 504X504. It takes around 9-10 hours to finetune GeoChat-7B on 3x A100 (40G).
+Visual instruction tuning takes more time due to the increased resolution of CLIP to 504X504. It takes around ~25 hours to finetune GeoChat-7B on 3x A100 (40G).
 
 Training script with DeepSpeed ZeRO-3: [`finetune_lora.sh`](https://github.com/mbzuai-oryx/GeoChat/blob/main/scripts/finetune_lora.sh).
 
