@@ -1,5 +1,12 @@
 ##  Finetuning Data
-We use GeoChat-Instruct to finetune our model. The instruction following dataset is present in GeoChat_Instruct.json, while the images are present in images.zip file in the [huggingface repo](https://huggingface.co/datasets/MBZUAI/GeoChat_Instruct). Unzip the images in a folder and provide the folder path in training and evaluation scripts.
+We use GeoChat-Instruct to finetune our model. The instruction following dataset is present in GeoChat_Instruct.json and the images are present in the [huggingface repo](https://huggingface.co/datasets/MBZUAI/GeoChat_Instruct). The images are split into multiple files. Download the separate files in the same folder and run the following script to merge them. 
+
+```Shell
+cat images_parta* > images.zip
+```
+
+Unzip the images in a folder and provide the folder path in training and evaluation scripts.
+
 | Data file name | Size |
 | --- | ---: |
 | [GeoChat_Instruct](https://huggingface.co/datasets/MBZUAI/GeoChat_Instruct/blob/main/GeoChat_Instruct.json) | 263 MB |
