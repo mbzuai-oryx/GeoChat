@@ -668,9 +668,7 @@ class LazySupervisedDataset(Dataset):
             image_folder = self.data_args.image_folder
             processor = self.data_args.image_processor
             image = Image.open((os.path.join(image_folder, image_file)).strip()).convert('RGB')
-            # print(image.shape)
-            # exit()
-            # import pdb;pdb.set_trace()
+
             if self.data_args.image_aspect_ratio == 'pad':
                 def expand2square(pil_img, background_color):
                     width, height = pil_img.size
@@ -685,14 +683,12 @@ class LazySupervisedDataset(Dataset):
                         result.paste(pil_img, ((height - width) // 2, 0))
                         return result
                 image = expand2square(image, tuple(int(x*255) for x in processor.image_mean))
-                # import pdb;pdb.set_trace()
-                # print(image.size)
-                image = processor.preprocess(image, return_tensors='pt')['pixel_values'][0]
-                # image = processor.preprocess(image,do_resize=True,crop_size ={'height': 336, 'width': 336},size = {'shortest_edge': 336}, return_tensors='pt')['pixel_values'][0]
-                # print(image.shape)
-                # print(image.shape)
+                # image = processor.preprocess(image, return_tensors='pt')['pixel_values'][0]
+                image = processor.preprocess(image,do_resize=True,crop_size ={'height': 504, 'width': 504},size = {'shortest_edge': 504}, return_tensors='pt')['pixel_values'][0]
             else:
-                image = processor.preprocess(image, return_tensors='pt')['pixel_values'][0]
+                # image = processor.preprocess(image, return_tensors='pt')['pixel_values'][0]
+                image = processor.preprocess(image,do_resize=True,crop_size ={'height': 504, 'width': 504},size = {'shortest_edge': 504}, return_tensors='pt')['pixel_values'][0]
+
             sources = preprocess_multimodal(
                 copy.deepcopy([e["conversations"] for e in sources]),
                 self.data_args)
