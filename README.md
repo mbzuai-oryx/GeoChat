@@ -209,14 +209,12 @@ Qualitative examples for region-based captioning. Given a bounding box, GeoChat 
 
 ## 📜 Citation
 ```bibtex
-@misc{kuckreja2023geochat,
-      title={GeoChat: Grounded Large Vision-Language Model for Remote Sensing}, 
-      author={Kartik Kuckreja and Muhammad Sohail Danish and Muzammal Naseer and Abhijit Das and Salman Khan and Fahad Shahbaz Khan},
-      year={2023},
-      eprint={2311.15826},
-      archivePrefix={arXiv},
-      primaryClass={cs.CV}
-}  
+  @article{kuckreja2023geochat,
+          title={GeoChat: Grounded Large Vision-Language Model for Remote Sensing},
+          author={Kuckreja, Kartik and Danish, Muhammad S. and Naseer, Muzammal and Das, Abhijit and Khan, Salman and Khan, Fahad S.},
+          journal={The IEEE/CVF Conference on Computer Vision and Pattern Recognition},
+          year={2024}
+  }
 ```
 ## 🙏 Acknowledgement
 We are thankful to LLaVA and Vicuna for releasing their models and code as open-source contributions.
