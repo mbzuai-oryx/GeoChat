@@ -85,11 +85,11 @@ def load_pretrained_model(model_path, model_base, model_name, load_8bit=False, l
                     shutil.copyfile(os.path.join(model_base, 'configuration_mpt.py'), os.path.join(model_path, 'configuration_mpt.py'))
                 tokenizer = AutoTokenizer.from_pretrained(model_base, use_fast=True)
                 cfg_pretrained = AutoConfig.from_pretrained(model_path, trust_remote_code=True)
-                model = LlavaMPTForCausalLM.from_pretrained(model_base, low_cpu_mem_usage=True, config=cfg_pretrained, **kwargs)
+                model = GeoChatMPTForCausalLM.from_pretrained(model_base, low_cpu_mem_usage=True, config=cfg_pretrained, **kwargs)
             else:
                 tokenizer = AutoTokenizer.from_pretrained(model_base, use_fast=False)
                 cfg_pretrained = AutoConfig.from_pretrained(model_path)
-                model = LlavaLlamaForCausalLM.from_pretrained(model_base, low_cpu_mem_usage=True, config=cfg_pretrained, **kwargs)
+                model = GeoChatLlamaForCausalLM.from_pretrained(model_base, low_cpu_mem_usage=True, config=cfg_pretrained, **kwargs)
 
             mm_projector_weights = torch.load(os.path.join(model_path, 'mm_projector.bin'), map_location='cpu')
             mm_projector_weights = {k: v.to(torch.float16) for k, v in mm_projector_weights.items()}
@@ -97,11 +97,11 @@ def load_pretrained_model(model_path, model_base, model_name, load_8bit=False, l
         else:
             if 'mpt' in model_name.lower():
                 tokenizer = AutoTokenizer.from_pretrained(model_path, use_fast=True)
-                model = LlavaMPTForCausalLM.from_pretrained(model_path, low_cpu_mem_usage=True, **kwargs)
+                model = GeoChatMPTForCausalLM.from_pretrained(model_path, low_cpu_mem_usage=True, **kwargs)
             else:
-                Print("Loading GeoChat......")
+                print("Loading GeoChat......")
                 tokenizer = AutoTokenizer.from_pretrained(model_path, use_fast=False)
-                model = LlavaLlamaForCausalLM.from_pretrained(model_path, low_cpu_mem_usage=True, **kwargs)
+                model = GeoChatLlamaForCausalLM.from_pretrained(model_path, low_cpu_mem_usage=True, **kwargs)
     else:
         # Load language model
         if model_base is not None:
