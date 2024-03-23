@@ -85,6 +85,9 @@ class CLIPVisionTower(nn.Module):
             self.load_model()
         else:
             self.cfg_only = CLIPVisionConfig.from_pretrained(self.vision_tower_name)
+            self.image_processor = CLIPImageProcessor.from_pretrained(self.vision_tower_name)
+            self.vision_tower = CLIPVisionModel.from_pretrained(self.vision_tower_name)
+            self.vision_tower.requires_grad_(False)
             self.clip_interpolate_embeddings(image_size=504, patch_size=14)
 
     def load_model(self):
