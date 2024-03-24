@@ -37,7 +37,7 @@ GeoChat is the first grounded Large Vision Language Model, specifically tailored
 
 ## Install
 
-1. Clone this repository and navigate to LLaVA folder
+1. Clone this repository and navigate to GeoChat folder
 ```bash
 git clone https://github.com/mbzuai-oryx/GeoChat.git
 cd GeoChat
