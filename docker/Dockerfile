@@ -63,7 +63,9 @@ COPY ./weights/ "${WEIGHTS_ROOT}"
 
 WORKDIR /
 
-RUN git clone https://github.com/AtlasAIPBC/GeoChat.git && \
+ADD https://api.github.com/repos/feiws/balance/git/refs/heads/main /tmp/version.json
+RUN rm -rf /tmp/version.json && \
+    git clone https://github.com/AtlasAIPBC/GeoChat.git && \
     . ~/miniconda3/bin/activate && \
     cd GeoChat && \
     conda activate ${APPLICATION_VENV} && \
