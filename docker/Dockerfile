@@ -56,13 +56,18 @@ RUN . ~/miniconda3/bin/activate && \
     pip install --upgrade pip && \
     pip install ipython opencv-python-headless
 
+# we are copying local checkout of weights
+#git clone https://huggingface.co/MBZUAI/geochat-7B && \
+WORKDIR "${WEIGHTS_ROOT}"
+COPY ./weights/ "${WEIGHTS_ROOT}"
+
 WORKDIR /
 
 RUN git clone https://github.com/AtlasAIPBC/GeoChat.git && \
-    git clone https://huggingface.co/MBZUAI/geochat-7B && \
+    . ~/miniconda3/bin/activate && \
     cd GeoChat && \
-    pip install -e . && \
-    python -c "import torch;print(torch.cuda.get_device_name(0))"
+    conda activate ${APPLICATION_VENV} && \
+    pip install -e .
 
 #WORKDIR "${VENV}"
 #RUN python3.9 -m venv "${VENV}" && \
@@ -78,4 +83,3 @@ RUN git clone https://github.com/AtlasAIPBC/GeoChat.git && \
 
 WORKDIR "${SOURCE_ROOT}"
 ENTRYPOINT ["/bin/bash"]
-
