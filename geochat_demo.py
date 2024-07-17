@@ -603,9 +603,9 @@ You can also simply chat in free form!
 text_input = gr.Textbox(placeholder='Upload your image and chat', interactive=True, show_label=False, container=False,
                         scale=12)
 with gr.Blocks() as demo:
-    gr.Markdown(title)
+    # gr.Markdown(title)
     # gr.Markdown(description)
-    gr.Markdown(article)
+    # gr.Markdown(article)
 
     with gr.Row():
         with gr.Column(scale=0.5):
@@ -703,4 +703,4 @@ with gr.Blocks() as demo:
 
     clear.click(gradio_reset, [chat_state, img_list], [chatbot, image, text_input, chat_state, img_list], queue=False)
 
-demo.launch(share=True, enable_queue=True,server_name='0.0.0.0')
+demo.launch(share=True, enable_queue=True,server_name='0.0.0.0', server_port=8081)
