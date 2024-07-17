@@ -63,7 +63,7 @@ COPY ./weights/ "${WEIGHTS_ROOT}"
 
 WORKDIR /
 
-ADD https://api.github.com/repos/feiws/balance/git/refs/heads/main /tmp/version.json
+ADD https://api.github.com/repos/AtlasAIPBC/GeoChat/git/refs/heads/main /tmp/version.json
 RUN rm -rf /tmp/version.json && \
     git clone https://github.com/AtlasAIPBC/GeoChat.git && \
     . ~/miniconda3/bin/activate && \
