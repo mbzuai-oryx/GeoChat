@@ -69,17 +69,5 @@ RUN git clone https://github.com/AtlasAIPBC/GeoChat.git && \
     conda activate ${APPLICATION_VENV} && \
     pip install -e .
 
-#WORKDIR "${VENV}"
-#RUN python3.9 -m venv "${VENV}" && \
-#    echo "source \"${VENV}/bin/activate\"" >> /root/.bashrc
-#
-#WORKDIR "${DIFFSAT_ROOT}"
-#COPY --exclude=checkpoints/ --exclude=samples/ . .
-#RUN . "${VENV}/bin/activate" && \
-#    pip install -r ./requirements.txt && \
-#    mkdir -p "${OUTPUT_DIR}" "${CHECKPOINT_DIR}"
-#
-#COPY checkpoints/single_image/ "${CHECKPOINT_DIR}"
-
 WORKDIR "${SOURCE_ROOT}"
 ENTRYPOINT ["/bin/bash"]
