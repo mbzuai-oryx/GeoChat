@@ -13,7 +13,7 @@ classifiers = [
     "License :: OSI Approved :: Apache Software License",
 ]
 dependencies = [
-    "einops", "fastapi", "gradio==3.35.2", "markdown2[all]", "numpy",
+    "einops", "fastapi", "gradio==3.35.2", "markdown2[all]", "numpy>=1.26.4,<2.0.0",
     "requests", "sentencepiece", "tokenizers>=0.12.1",
     "torch==2.0.1", "torchvision==0.15.2", "uvicorn", "wandb",
     "shortuuid", "httpx==0.24.0",
