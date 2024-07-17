@@ -703,4 +703,9 @@ with gr.Blocks() as demo:
 
     clear.click(gradio_reset, [chat_state, img_list], [chatbot, image, text_input, chat_state, img_list], queue=False)
 
-demo.launch(share=True, enable_queue=True,server_name='0.0.0.0', server_port=8081)
+demo.launch(
+    share=False,
+    enable_queue=True,
+    server_name=os.getenv('GRADIO_SERVER_NAME') or '0.0.0.0',
+    server_port=int(os.getenv('GRADIO_SERVER_PORT') or 8080),
+)
