@@ -650,13 +650,13 @@ with gr.Blocks() as demo:
     replace_flag = gr.State(value=0)
     image.upload(image_upload_trigger, [upload_flag, replace_flag, img_list], [upload_flag, replace_flag])
 
-
     example_trigger_partial = partial(
         example_trigger,
         upload_flag=upload_flag,
         replace_flag=replace_flag,
         img_list=img_list,
     )
+
     with gr.Row():
         with gr.Column():
             gr.Examples(
