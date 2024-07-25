@@ -51,6 +51,10 @@ args = parse_args()
 
 model_name = get_model_name_from_path(args.model_path)
 tokenizer, model, image_processor, context_len = load_pretrained_model(args.model_path, args.model_base, model_name, args.load_8bit, args.load_4bit, device=args.device)
+assert tokenizer is not None, f'Model probably did not load: {model_name}'
+assert model is not None, f'Model probably did not load: {model_name}'
+assert image_processor is not None, f'Model probably did not load: {model_name}'
+assert context_len is not None, f'Model probably did not load: {model_name}'
 
 device = 'cuda:{}'.format(args.gpu_id)
 
@@ -584,7 +588,7 @@ def gradio_taskselect(idx):
 
 
 
-chat = Chat(model, image_processor,tokenizer, device=device)
+chat = Chat(model, image_processor, tokenizer, device=device)
 
 
 title = """<h1 align="center">GeoChat Demo</h1>"""
@@ -609,7 +613,8 @@ with gr.Blocks() as demo:
 
     with gr.Row():
         with gr.Column(scale=0.5):
-            image = gr.Image(type="pil", tool='sketch', brush_radius=20)
+            #image = gr.Image(type="pil", tool='sketch', brush_radius=20)
+            image = gr.Image(type="pil")
 
             temperature = gr.Slider(
                 minimum=0.1,
