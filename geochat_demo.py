@@ -648,7 +648,11 @@ with gr.Blocks() as demo:
 
     upload_flag = gr.State(value=0)
     replace_flag = gr.State(value=0)
-    image.upload(image_upload_trigger, [upload_flag, replace_flag, img_list], [upload_flag, replace_flag])
+    image.upload(
+        image_upload_trigger,
+        [upload_flag, replace_flag, img_list],
+        [upload_flag, replace_flag]
+    )
 
     with gr.Row():
         with gr.Column():

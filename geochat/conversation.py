@@ -508,7 +508,6 @@ class Chat:
         img_list.append(image)
 
     def upload_img(self, image, conv, img_list):
-        print(f'Uploading Image: {image} {img_list}')
         conv.append_message(conv.roles[0], DEFAULT_IMAGE_TOKEN+'\n')
         img_list.append(image)
         msg = "Received."
