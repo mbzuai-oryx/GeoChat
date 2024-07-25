@@ -454,8 +454,13 @@ def gradio_reset(chat_state, img_list):
         chat_state.messages = []
     if img_list is not None:
         img_list = []
-    return None, gr.update(value=None, interactive=True), gr.update(placeholder='Upload your image and chat',
-                                                                    interactive=True), chat_state, img_list
+    return (
+        None,
+        gr.update(value=None, interactive=True),
+        gr.update(placeholder='Upload your image and chat', interactive=True),
+        chat_state,
+        img_list
+    )
 
 
 def image_upload_trigger(upload_flag, replace_flag, img_list):
@@ -478,6 +483,7 @@ def example_trigger(text_input, image, upload_flag, replace_flag, img_list):
 
 
 def gradio_ask(user_message, chatbot, chat_state, gr_img, img_list, upload_flag, replace_flag):
+    print(gr_img, img_list, upload_flag, replace_flag, flush=True)
     if len(user_message) == 0:
         text_box_show = 'Input should not be empty!'
     else:
@@ -666,9 +672,9 @@ with gr.Blocks() as demo:
                     ["demo_images/train_2956_0001.png", "Where are the airplanes located and what is their type?"],
                     ["demo_images/7292.JPG", "How many buildings are flooded?"],
                 ],
-                inputs=[image, text_input, upload_flag, replace_flag, img_list],
-                fn=example_trigger,
-                outputs=[upload_flag, replace_flag],
+                inputs=[image, text_input],
+                #fn=example_trigger,
+                #outputs=[upload_flag, replace_flag],
             )
         with gr.Column():
             gr.Examples(
@@ -676,9 +682,9 @@ with gr.Blocks() as demo:
                     ["demo_images/church_183.png", "Classify the image in the following classes: Church, Beach, Dense Residential, Storage Tanks."],
                     ["demo_images/04444.png", "[identify] what is this {<8><26><22><37>}"],
                 ],
-                inputs=[image, text_input, upload_flag, replace_flag, img_list],
-                fn=example_trigger,
-                outputs=[upload_flag, replace_flag]
+                inputs=[image, text_input],
+                #fn=example_trigger,
+                #outputs=[upload_flag, replace_flag]
             )
 
     dataset.click(
