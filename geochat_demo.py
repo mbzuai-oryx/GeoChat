@@ -677,8 +677,9 @@ with gr.Blocks() as demo:
                     ["demo_images/04444.png", "[identify] what is this {<8><26><22><37>}"],
                 ],
                 inputs=[image, text_input],
-                #fn=example_trigger,
-                #outputs=[upload_flag, replace_flag]
+                fn=example_trigger,
+                run_on_click=True,
+                outputs=[upload_flag, replace_flag],
             )
 
     dataset.click(
