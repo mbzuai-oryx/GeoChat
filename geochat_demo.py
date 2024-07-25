@@ -650,13 +650,6 @@ with gr.Blocks() as demo:
     replace_flag = gr.State(value=0)
     image.upload(image_upload_trigger, [upload_flag, replace_flag, img_list], [upload_flag, replace_flag])
 
-    example_trigger_partial = partial(
-        example_trigger,
-        upload_flag=upload_flag,
-        replace_flag=replace_flag,
-        img_list=img_list,
-    )
-
     with gr.Row():
         with gr.Column():
             gr.Examples(
@@ -664,8 +657,8 @@ with gr.Blocks() as demo:
                     ["demo_images/train_2956_0001.png", "Where are the airplanes located and what is their type?"],
                     ["demo_images/7292.JPG", "How many buildings are flooded?"],
                 ],
-                inputs=[image, text_input],
-                fn=example_trigger_partial,
+                inputs=[image, text_input, upload_flag, replace_flag, img_list],
+                fn=example_trigger,
                 outputs=[upload_flag, replace_flag],
             )
         with gr.Column():
@@ -674,8 +667,8 @@ with gr.Blocks() as demo:
                     ["demo_images/church_183.png", "Classify the image in the following classes: Church, Beach, Dense Residential, Storage Tanks."],
                     ["demo_images/04444.png", "[identify] what is this {<8><26><22><37>}"],
                 ],
-                inputs=[image, text_input],
-                fn=example_trigger_partial,
+                inputs=[image, text_input, upload_flag, replace_flag, img_list],
+                fn=example_trigger,
                 outputs=[upload_flag, replace_flag]
             )
 
