@@ -472,16 +472,6 @@ def image_upload_trigger(upload_flag, replace_flag, img_list):
     return upload_flag, replace_flag
 
 
-def example_trigger(text_input, image, upload_flag, replace_flag, img_list):
-    # set the upload flag to true when receive a new image.
-    # if there is an old image (and old conversation), set the replace flag to true to reset the conv later.
-    upload_flag = 1
-    if img_list or replace_flag == 1:
-        replace_flag = 1
-
-    return upload_flag, replace_flag
-
-
 def gradio_ask(user_message, chatbot, chat_state, gr_img, img_list, upload_flag, replace_flag):
     print(gr_img, img_list, upload_flag, replace_flag, flush=True)
     if len(user_message) == 0:
@@ -665,6 +655,15 @@ with gr.Blocks() as demo:
         [upload_flag, replace_flag]
     )
 
+    def example_trigger(text_input, image):
+        # set the upload flag to true when receive a new image.
+        # if there is an old image (and old conversation), set the replace flag to true to reset the conv later.
+        upload_flag = 1
+        if img_list or replace_flag == 1:
+            replace_flag = 1
+
+        return upload_flag, replace_flag
+
     with gr.Row():
         with gr.Column():
             gr.Examples(
@@ -673,8 +672,9 @@ with gr.Blocks() as demo:
                     ["demo_images/7292.JPG", "How many buildings are flooded?"],
                 ],
                 inputs=[image, text_input],
-                #fn=example_trigger,
-                #outputs=[upload_flag, replace_flag],
+                fn=example_trigger,
+                run_on_click=True,
+                outputs=[upload_flag, replace_flag],
             )
         with gr.Column():
             gr.Examples(
