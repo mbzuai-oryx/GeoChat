@@ -498,6 +498,11 @@ def gradio_ask(user_message, chatbot, chat_state, gr_img, img_list, upload_flag,
     if chat_state is None:
         chat_state = CONV_VISION.copy()
 
+    # sanity check
+    if len(img_list) < 1 and not upload_flag:
+        upload_flag = 1
+        replace_flag = 1
+
     if upload_flag:
         if replace_flag:
             chat_state = CONV_VISION.copy()  # new image, reset everything
