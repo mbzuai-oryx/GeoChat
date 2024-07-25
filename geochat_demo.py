@@ -473,7 +473,6 @@ def image_upload_trigger(upload_flag, replace_flag, img_list):
 
 
 def gradio_ask(user_message, chatbot, chat_state, gr_img, img_list, upload_flag, replace_flag):
-    print(gr_img, img_list, upload_flag, replace_flag, flush=True)
     if len(user_message) == 0:
         text_box_show = 'Input should not be empty!'
     else:
@@ -493,11 +492,6 @@ def gradio_ask(user_message, chatbot, chat_state, gr_img, img_list, upload_flag,
 
     if chat_state is None:
         chat_state = CONV_VISION.copy()
-
-    # sanity check
-    if len(img_list) < 1 and not upload_flag:
-        upload_flag = 1
-        replace_flag = 1
 
     if upload_flag:
         if replace_flag:
