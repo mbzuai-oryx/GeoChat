@@ -722,7 +722,6 @@ with gr.Blocks() as demo:
 
 demo.launch(
     share=False,
-    enable_queue=True,
     server_name=os.getenv('GRADIO_SERVER_NAME') or '0.0.0.0',
     server_port=int(os.getenv('GRADIO_SERVER_PORT') or 8080),
 )
