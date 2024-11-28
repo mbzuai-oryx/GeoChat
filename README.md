@@ -15,8 +15,8 @@
 ---
 
 ## 📢 Latest Updates
-
-- **Feb-28-24**: We open source the code, model, dataset and evaluation scripts.
+- Supplementary material for the accepted paper is available here: [Supplementary](https://github.com/mbzuai-oryx/GeoChat/blob/main/docs/geochat_supp.pdf).
+- **Feb-28-24**: We open source the code, model, dataset, and evaluation scripts. 
 - **Feb-27-24**: GeoChat has been accepted to **CVPR-24** 🎉. 
 - **Nov-28-23**: GeoChat paper is released [arxiv link](https://arxiv.org/abs/2311.15826). 🔥🔥
 ---
